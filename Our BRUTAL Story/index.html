@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grid Artwork</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tangerine:wght@400;700&family=BioRhyme:wdth,wght@112.5,800&family=Syne:wght@800&family=Monsieur+La+Doulaise&family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            color-scheme: light;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #ffffff !important;
+            touch-action: manipulation;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .title {
+            font-size: 48px;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+            line-height: 0.85;
+            opacity: 0;
+            animation: fadeIn 1.2s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .delicate {
+            font-family: 'Monsieur La Doulaise', cursive;
+            font-size: clamp(48px, 11vw, 72px);
+            font-weight: 400;
+            color: #444;
+        }
+
+        .brutal {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(32px, 10vw, 64px);
+            font-weight: 800;
+            color: #000;
+            letter-spacing: clamp(2px, 1.5vw, 8px);
+            text-transform: uppercase;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(9, 1fr);
+            grid-template-rows: repeat(5, 1fr);
+            width: 90vmin;
+            aspect-ratio: 9 / 5;
+            gap: 0;
+            background: transparent;
+            transition: opacity 0.3s ease;
+            opacity: 0;
+        }
+
+        .grid-container.visible {
+            opacity: 1;
+            transition: opacity 1s ease;
+        }
+
+        .grid-container.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .square {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+        }
+
+        .square.fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        .square:hover {
+            transform: scale(0.95);
+        }
+
+        .square:active {
+            transform: scale(0.9);
+        }
+
+        /* Different colors for variety - you can customize these */
+        .square:nth-child(1) { 
+            background-image: url('Asset_1_2x.png');
+            background-size: cover;
+            background-position: center;
+        }
+        .square:nth-child(2) { 
+            background-image: url('Chapter_2_2x.png');
+            background-size: cover;
+            background-position: center;
+        }
+        .square:nth-child(3) { 
+            background-image: url('Chapter_3_2x.png');
+            background-size: cover;
+            background-position: center;
+        }
+        .square:nth-child(9n+1):not(:first-child) { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .square:nth-child(9n+2):not(:nth-child(2)) { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .square:nth-child(9n+3):not(:nth-child(3)) { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        .square:nth-child(9n+4) { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+        .square:nth-child(9n+5) { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+        .square:nth-child(9n+6) { background: linear-gradient(135deg, #30cfd0 0%, #330867 100%); }
+        .square:nth-child(9n+7) { background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); }
+        .square:nth-child(9n+8) { background: linear-gradient(135deg, #ff9a56 0%, #ff6a88 100%); }
+        .square:nth-child(9n+9) { background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); }
+
+        /* Fullscreen view */
+        .fullscreen-view {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: none;
+            overflow-y: auto; /* Allow scrolling */
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0);
+            transition: background-color 1s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+        }
+
+        .fullscreen-view.active {
+            display: block; /* Changed from flex to block for scrolling */
+            pointer-events: auto;
+        }
+
+        .fullscreen-content {
+            position: relative;
+            min-height: 100vh;
+            padding: 40px 0;
+        }
+
+        .fullscreen-square {
+            width: 80vmin;
+            height: 80vmin;
+            max-width: 500px;
+            max-height: 500px;
+            border-radius: 8px;
+            border: 4px solid #000;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            position: absolute;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform;
+        }
+
+        .fullscreen-square.morphing {
+            /* This class is added during the transition */
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.3);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .story-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 8px;
+            max-width: 600px;
+            width: 90vw;
+            max-height: none; /* Remove height restriction */
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            margin: 30px auto 60px; /* Gap above and below */
+        }
+
+        .story-container.visible {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+            transition: opacity 0.4s ease 0.3s, transform 0.4s ease 0.3s;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .story-container h2 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        .chapter-label {
+            font-family: 'Monsieur La Doulaise', cursive;
+            font-size: 36px;
+            font-weight: 400;
+            color: #666;
+            display: block;
+            margin-bottom: 0px;
+        }
+
+        .chapter-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 24px;
+            font-weight: 800;
+            color: #000;
+            display: block;
+            margin-bottom: 20px;
+            text-transform: none;
+        }
+
+        .story-container p {
+            color: #555;
+            line-height: 1.6;
+            font-size: 16px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1001;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease;
+        }
+
+        .close-button:hover {
+            transform: scale(1.1);
+        }
+
+        .close-button:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body>
+    <!-- Title -->
+    <h1 class="title">
+        <span class="delicate">Our</span><br>
+        <span class="brutal">BRUTAL</span><br>
+        <span class="delicate">Story</span>
+    </h1>
+    
+    <!-- Main grid -->
+    <div class="grid-container" id="gridContainer">
+        <!-- Squares will be generated by JavaScript -->
+    </div>
+
+    <!-- Fullscreen view -->
+    <div class="fullscreen-view" id="fullscreenView">
+        <button class="close-button" id="closeButton">×</button>
+        <div class="fullscreen-content">
+            <div class="fullscreen-square" id="fullscreenSquare"></div>
+            <div class="story-container" id="storyContainer">
+                <h2 id="storyTitle">Story Title</h2>
+                <p id="storyText">Story content goes here...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Stories for each square - customize these with your own content!
+        const stories = {
+            1: {
+                title: '<span class="chapter-label">Chapter 1</span><span class="chapter-title">Convergence</span>',
+                text: "Two independent trajectories crossed by chance.\nAn unexpected invitation, a crowded party, a couch that became the point were two lives touched.\nConversation extended beyond intention, holding everything else in suspension.\nTime compressed around that moment, altering the course that followed."
+            },
+            2: {
+                title: '<span class="chapter-label">Chapter 2</span><span class="chapter-title">Threshold</span>',
+                text: "Add your Chapter 2 story here..."
+            },
+            3: {
+                title: '<span class="chapter-label">Chapter 3</span><span class="chapter-title">Impact</span>',
+                text: "Add your Chapter 3 story here..."
+            },
+            4: {
+                title: '<span class="chapter-label">Chapter 4</span><span class="chapter-title">Formentera</span>',
+                text: "Add your Chapter 4 story here..."
+            },
+            5: {
+                title: '<span class="chapter-label">Chapter 5</span><span class="chapter-title">Drift</span>',
+                text: "Add your Chapter 5 story here..."
+            },
+            6: {
+                title: '<span class="chapter-label">Chapter 6</span><span class="chapter-title">Axis</span>',
+                text: "Add your Chapter 6 story here..."
+            },
+            7: {
+                title: '<span class="chapter-label">Chapter 7</span><span class="chapter-title">Transience</span>',
+                text: "Add your Chapter 7 story here..."
+            },
+            8: {
+                title: '<span class="chapter-label">Chapter 8</span><span class="chapter-title">Inertia</span>',
+                text: "Add your Chapter 8 story here..."
+            },
+            9: {
+                title: '<span class="chapter-label">Chapter 9</span><span class="chapter-title">Parallel</span>',
+                text: "Add your Chapter 9 story here..."
+            }
+            // Continue adding stories for squares 10-45...
+        };
+
+        // Generate default stories for remaining squares
+        for (let i = 6; i <= 45; i++) {
+            if (!stories[i]) {
+                stories[i] = {
+                    title: `Square ${i}`,
+                    text: `This is the story of square ${i}. Add your own unique story here to make this artwork truly yours!`
+                };
+            }
+        }
+
+        // Generate the grid
+        const gridContainer = document.getElementById('gridContainer');
+        
+        // Define custom background colors for squares with images
+        const customBackgrounds = {
+            1: '#2d94bd',  // Teal background for square 1
+            2: '#d95956',  // Coral/red background for square 2
+            3: '#d6d6d6'   // Light gray background for square 3
+            // Add more squares here as needed: 4: '#hexcolor', etc.
+        };
+        
+        const allSquares = [];
+        
+        for (let i = 1; i <= 45; i++) {
+            const square = document.createElement('div');
+            square.className = 'square';
+            square.dataset.id = i;
+            
+            // Add custom background color if defined
+            if (customBackgrounds[i]) {
+                square.dataset.background = customBackgrounds[i];
+            }
+            
+            gridContainer.appendChild(square);
+            allSquares.push(square);
+        }
+        
+        // Fade in squares in random order after title appears
+        setTimeout(() => {
+            // Fade in the grid container
+            gridContainer.classList.add('visible');
+            
+            // Create array of indices and shuffle it
+            const indices = Array.from({ length: 45 }, (_, i) => i);
+            
+            // Fisher-Yates shuffle
+            for (let i = indices.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [indices[i], indices[j]] = [indices[j], indices[i]];
+            }
+            
+            // Fade in each square with a small delay between them
+            indices.forEach((index, position) => {
+                setTimeout(() => {
+                    allSquares[index].classList.add('fade-in');
+                }, position * 30); // 30ms between each square
+            });
+        }, 800); // Wait 800ms for title to mostly fade in
+
+        // Get elements
+        const fullscreenView = document.getElementById('fullscreenView');
+        const fullscreenSquare = document.getElementById('fullscreenSquare');
+        const storyTitle = document.getElementById('storyTitle');
+        const storyText = document.getElementById('storyText');
+        const closeButton = document.getElementById('closeButton');
+
+        // Store the last clicked square for closing animation
+        let lastClickedSquare = null;
+        
+        // Handle square click
+        document.querySelectorAll('.square').forEach(square => {
+            square.addEventListener('click', function() {
+                lastClickedSquare = this; // Remember which square was clicked
+                
+                const id = parseInt(this.dataset.id);
+                const story = stories[id];
+                
+                // Get the position and size of the clicked square
+                const rect = this.getBoundingClientRect();
+                const computedStyle = window.getComputedStyle(this);
+                const background = computedStyle.background;
+                
+                // Determine target background color
+                let targetBgColor;
+                if (this.dataset.background) {
+                    targetBgColor = this.dataset.background;
+                } else {
+                    const gradientMatch = background.match(/rgb\([\d,\s]+\)|#[0-9a-fA-F]{6}/);
+                    targetBgColor = gradientMatch ? gradientMatch[0] : '#000';
+                }
+                
+                // Set up the fullscreen square to start at the grid square's position
+                fullscreenSquare.style.background = background;
+                fullscreenSquare.style.border = 'none';
+                fullscreenSquare.style.boxShadow = 'none';
+                fullscreenSquare.style.width = rect.width + 'px';
+                fullscreenSquare.style.height = rect.height + 'px';
+                fullscreenSquare.style.left = rect.left + 'px';
+                fullscreenSquare.style.top = rect.top + 'px';
+                fullscreenSquare.style.margin = '0';
+                fullscreenSquare.style.borderRadius = '0';
+                fullscreenSquare.style.transform = 'translate(0, 0) scale(1)';
+                
+                // Show fullscreen view with transparent background initially
+                fullscreenView.style.backgroundColor = 'rgba(0, 0, 0, 0)';
+                fullscreenView.classList.add('active');
+                storyContainer.classList.remove('visible');
+                
+                // Hide the grid
+                gridContainer.classList.add('hidden');
+                
+                // Calculate final position (upper portion of screen)
+                const finalSize = Math.min(window.innerHeight * 0.5, window.innerWidth * 0.8, 500);
+                const finalLeft = (window.innerWidth - finalSize) / 2;
+                const finalTop = Math.max(40, (window.innerHeight * 0.1)); // 10% from top or 40px min
+                
+                // Position story container below the square
+                const storyTop = finalTop + finalSize + 30; // 30px gap below square
+                storyContainer.style.top = storyTop + 'px';
+                
+                // Trigger the morph animation and background color fade
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        // Morph the square
+                        fullscreenSquare.style.width = finalSize + 'px';
+                        fullscreenSquare.style.height = finalSize + 'px';
+                        fullscreenSquare.style.left = finalLeft + 'px';
+                        fullscreenSquare.style.top = finalTop + 'px';
+                        fullscreenSquare.style.borderRadius = '8px';
+                        fullscreenSquare.style.border = '4px solid #000';
+                        fullscreenSquare.style.boxShadow = '0 10px 40px rgba(0, 0, 0, 0.3)';
+                        
+                        // Fade in background color
+                        fullscreenView.style.backgroundColor = targetBgColor;
+                    });
+                });
+                
+                // Set story content and show it after animation
+                storyTitle.innerHTML = story.title;
+                storyText.innerHTML = story.text.replace(/\n/g, '<br>');
+                
+                setTimeout(() => {
+                    storyContainer.classList.add('visible');
+                }, 600);
+            });
+        });
+
+        // Handle close button
+        closeButton.addEventListener('click', function() {
+            closeWithMorph();
+        });
+        
+        // Function to handle closing with reverse morph animation
+        function closeWithMorph() {
+            // Hide story first (quick fade out)
+            storyContainer.classList.remove('visible');
+            
+            // Show grid immediately so it's visible during the morph back
+            gridContainer.classList.remove('hidden');
+            
+            // Wait for story to disappear before starting the morph back
+            setTimeout(() => {
+                if (lastClickedSquare) {
+                    // Get the original square's position
+                    const rect = lastClickedSquare.getBoundingClientRect();
+                    
+                    // Morph back to original position
+                    fullscreenSquare.style.width = rect.width + 'px';
+                    fullscreenSquare.style.height = rect.height + 'px';
+                    fullscreenSquare.style.left = rect.left + 'px';
+                    fullscreenSquare.style.top = rect.top + 'px';
+                    fullscreenSquare.style.borderRadius = '0';
+                    fullscreenSquare.style.border = 'none';
+                    fullscreenSquare.style.boxShadow = 'none';
+                    
+                    // Fade out background color
+                    fullscreenView.style.backgroundColor = 'rgba(0, 0, 0, 0)';
+                }
+            }, 200); // Wait 200ms for story to fade out
+            
+            setTimeout(() => {
+                fullscreenView.classList.remove('active');
+            }, 800); // Total: 200ms wait + 600ms animation
+        }
+
+        // Also close when clicking outside the story container
+        fullscreenView.addEventListener('click', function(e) {
+            if (e.target === fullscreenView) {
+                closeWithMorph();
+            }
+        });
+    </script>
+</body>
+</html>
