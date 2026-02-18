@@ -87,10 +87,14 @@
         .square {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             cursor: pointer;
-            transition: transform 0.2s ease;
+            transition: transform 0.2s ease, background-image 0.3s ease;
             position: relative;
             overflow: hidden;
             opacity: 0;
+        }
+
+        .square.clicked {
+            background-image: none !important;
         }
 
         .square.fade-in {
@@ -106,38 +110,38 @@
         }
 
         /* All squares use images from the images folder */
-        .square:nth-child(1) { background-image: url('images/01-Square.png'); background-size: cover; background-position: center; }
-        .square:nth-child(2) { background-image: url('images/02-Square.png'); background-size: cover; background-position: center; }
-        .square:nth-child(3) { background-image: url('images/03-Square.png'); background-size: cover; background-position: center; }
-        .square:nth-child(4) { background-image: url('images/04-Square.png'); background-size: cover; background-position: center; }
-        .square:nth-child(5) { background-image: url('images/05-Square.png'); background-size: cover; background-position: center; }
-        .square:nth-child(6) { background-image: url('images/06-Square.png'); background-size: cover; background-position: center; }
-        .square:nth-child(7) { background-image: url('images/07-Square.png'); background-size: cover; background-position: center; }
-        .square:nth-child(8) { background-image: url('images/08-Square.png'); background-size: cover; background-position: center; }
-        .square:nth-child(9) { background-image: url('images/09-Square.png'); background-size: cover; background-position: center; }
-        .square:nth-child(10) { background-image: url('images/10-Square.png'); background-size: cover; background-position: center; }
-        .square:nth-child(11) { background-image: url('images/11-Square.png'); background-size: cover; background-position: center; }
-        .square:nth-child(12) { background-image: url('images/12-Square.png'); background-size: cover; background-position: center; }
-        .square:nth-child(13) { background-image: url('images/13-Square.png'); background-size: cover; background-position: center; }
-        .square:nth-child(14) { background-image: url('images/14-Square.png'); background-size: cover; background-position: center; }
-        .square:nth-child(15) { background-image: url('images/15-Square.png'); background-size: cover; background-position: center; }
-        .square:nth-child(16) { background-image: url('images/16-Square.png'); background-size: cover; background-position: center; }
-        .square:nth-child(17) { background-image: url('images/17-Square.png'); background-size: cover; background-position: center; }
-        .square:nth-child(18) { background-image: url('images/18-Square.png'); background-size: cover; background-position: center; }
-        .square:nth-child(19) { background-image: url('images/19-Square.png'); background-size: cover; background-position: center; }
-        .square:nth-child(20) { background-image: url('images/20-Square.png'); background-size: cover; background-position: center; }
-        .square:nth-child(21) { background-image: url('images/21-Square.png'); background-size: cover; background-position: center; }
-        .square:nth-child(22) { background-image: url('images/22-Square.png'); background-size: cover; background-position: center; }
-        .square:nth-child(23) { background-image: url('images/23-Square.png'); background-size: cover; background-position: center; }
-        .square:nth-child(24) { background-image: url('images/24-Square.png'); background-size: cover; background-position: center; }
-        .square:nth-child(25) { background-image: url('images/25-Square.png'); background-size: cover; background-position: center; }
-        .square:nth-child(26) { background-image: url('images/26-Square.png'); background-size: cover; background-position: center; }
-        .square:nth-child(27) { background-image: url('images/27-Square.png'); background-size: cover; background-position: center; }
-        .square:nth-child(28) { background-image: url('images/28-Square.png'); background-size: cover; background-position: center; }
-        .square:nth-child(29) { background-image: url('images/29-Square.png'); background-size: cover; background-position: center; }
-        .square:nth-child(30) { background-image: url('images/30-Square.png'); background-size: cover; background-position: center; }
-        .square:nth-child(31) { background-image: url('images/31-Square.png'); background-size: cover; background-position: center; }
-        .square:nth-child(32) { background-image: url('images/32-Square.png'); background-size: cover; background-position: center; }
+        .square:nth-child(1) { background-color: #3093b9; background-image: url('images/01-Square.png'); background-size: cover; background-position: center; }
+        .square:nth-child(2) { background-color: #d7d7d7; background-image: url('images/02-Square.png'); background-size: cover; background-position: center; }
+        .square:nth-child(3) { background-color: #3093b9; background-image: url('images/03-Square.png'); background-size: cover; background-position: center; }
+        .square:nth-child(4) { background-color: #31332a; background-image: url('images/04-Square.png'); background-size: cover; background-position: center; }
+        .square:nth-child(5) { background-color: #31332a; background-image: url('images/05-Square.png'); background-size: cover; background-position: center; }
+        .square:nth-child(6) { background-color: #d7d7d7; background-image: url('images/06-Square.png'); background-size: cover; background-position: center; }
+        .square:nth-child(7) { background-color: #df594e; background-image: url('images/07-Square.png'); background-size: cover; background-position: center; }
+        .square:nth-child(8) { background-color: #e1e775; background-image: url('images/08-Square.png'); background-size: cover; background-position: center; }
+        .square:nth-child(9) { background-color: #d7d7d7; background-image: url('images/09-Square.png'); background-size: cover; background-position: center; }
+        .square:nth-child(10) { background-color: #31332a; background-image: url('images/10-Square.png'); background-size: cover; background-position: center; }
+        .square:nth-child(11) { background-color: #f5b0cf; background-image: url('images/11-Square.png'); background-size: cover; background-position: center; }
+        .square:nth-child(12) { background-color: #e1e775; background-image: url('images/12-Square.png'); background-size: cover; background-position: center; }
+        .square:nth-child(13) { background-color: #d7d7d7; background-image: url('images/13-Square.png'); background-size: cover; background-position: center; }
+        .square:nth-child(14) { background-color: #31332a; background-image: url('images/14-Square.png'); background-size: cover; background-position: center; }
+        .square:nth-child(15) { background-color: #d7d7d7; background-image: url('images/15-Square.png'); background-size: cover; background-position: center; }
+        .square:nth-child(16) { background-color: #3093b9; background-image: url('images/16-Square.png'); background-size: cover; background-position: center; }
+        .square:nth-child(17) { background-color: #31332a; background-image: url('images/17-Square.png'); background-size: cover; background-position: center; }
+        .square:nth-child(18) { background-color: #df594e; background-image: url('images/18-Square.png'); background-size: cover; background-position: center; }
+        .square:nth-child(19) { background-color: #3093b9; background-image: url('images/19-Square.png'); background-size: cover; background-position: center; }
+        .square:nth-child(20) { background-color: #d7d7d7; background-image: url('images/20-Square.png'); background-size: cover; background-position: center; }
+        .square:nth-child(21) { background-color: #31332a; background-image: url('images/21-Square.png'); background-size: cover; background-position: center; }
+        .square:nth-child(22) { background-color: #e1e775; background-image: url('images/22-Square.png'); background-size: cover; background-position: center; }
+        .square:nth-child(23) { background-color: #df594e; background-image: url('images/23-Square.png'); background-size: cover; background-position: center; }
+        .square:nth-child(24) { background-color: #31332a; background-image: url('images/24-Square.png'); background-size: cover; background-position: center; }
+        .square:nth-child(25) { background-color: #f5b0cf; background-image: url('images/25-Square.png'); background-size: cover; background-position: center; }
+        .square:nth-child(26) { background-color: #31332a; background-image: url('images/26-Square.png'); background-size: cover; background-position: center; }
+        .square:nth-child(27) { background-color: #d7d7d7; background-image: url('images/27-Square.png'); background-size: cover; background-position: center; }
+        .square:nth-child(28) { background-color: #3093b9; background-image: url('images/28-Square.png'); background-size: cover; background-position: center; }
+        .square:nth-child(29) { background-color: #31332a; background-image: url('images/29-Square.png'); background-size: cover; background-position: center; }
+        .square:nth-child(30) { background-color: #f5b0cf; background-image: url('images/30-Square.png'); background-size: cover; background-position: center; }
+        .square:nth-child(31) { background-color: #31332a; background-image: url('images/31-Square.png'); background-size: cover; background-position: center; }
+        .square:nth-child(32) { background-color: #31332a; background-image: url('images/32-Square.png'); background-size: cover; background-position: center; }
 
         /* Fullscreen view */
         .fullscreen-view {
@@ -170,8 +174,6 @@
             height: 80vmin;
             max-width: 500px;
             max-height: 500px;
-            border-radius: 8px;
-            border: 4px solid #000;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
             position: absolute;
             transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
@@ -259,6 +261,39 @@
             font-weight: 400;
         }
 
+        .language-toggle {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            display: flex;
+            gap: 5px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .language-toggle button {
+            background: none;
+            border: none;
+            color: #999;
+            cursor: pointer;
+            padding: 5px 8px;
+            transition: color 0.2s ease;
+        }
+
+        .language-toggle button.active {
+            color: #000;
+            font-weight: 700;
+        }
+
+        .language-toggle button:hover {
+            color: #333;
+        }
+
+        .language-toggle .separator {
+            color: #ddd;
+        }
+
         .close-button {
             position: absolute;
             top: 20px;
@@ -306,6 +341,11 @@
         <div class="fullscreen-content">
             <div class="fullscreen-square" id="fullscreenSquare"></div>
             <div class="story-container" id="storyContainer">
+                <div class="language-toggle">
+                    <button id="langEN" class="active">EN</button>
+                    <span class="separator">|</span>
+                    <button id="langES">ES</button>
+                </div>
                 <h2 id="storyTitle">Story Title</h2>
                 <p id="storyText">Story content goes here...</p>
             </div>
@@ -316,8 +356,14 @@
         // Stories for each square - customize these with your own content!
         const stories = {
             1: {
-                title: '<span class="chapter-label">Chapter 1</span><span class="chapter-title">Convergence</span>',
-                text: "Two independent trajectories crossed by chance.\nAn unexpected invitation, a crowded party, a couch that became the point were two lives touched.\nConversation extended beyond intention, holding everything else in suspension.\nTime compressed around that moment, altering the course that followed."
+                title: {
+                    en: '<span class="chapter-label">Chapter 1</span><span class="chapter-title">Convergence</span>',
+                    es: '<span class="chapter-label">Capítulo 1</span><span class="chapter-title">Convergencia</span>'
+                },
+                text: {
+                    en: "Two independent trajectories crossed by chance.\nAn unexpected invitation, a crowded party, a couch that became the point were two lives touched.\nConversation extended beyond intention, holding everything else in suspension.\nTime compressed around that moment, altering the course that followed.",
+                    es: "Dos trayectorias independientes se cruzaron por casualidad.\nUna invitación inesperada, una fiesta llena de gente, un sofá que se convirtió en el punto donde dos vidas se tocaron.\nLa conversación se extendió más allá de la intención, manteniendo todo lo demás en suspensión.\nEl tiempo se comprimió alrededor de ese momento, alterando el curso que siguió."
+                }
             },
             2: {
                 title: '<span class="chapter-label">Chapter 2</span><span class="chapter-title">Threshold</span>',
@@ -354,6 +400,49 @@
             // Continue adding stories for squares 10-32...
         };
 
+        // Language management
+        let currentLanguage = localStorage.getItem('language') || 'en';
+        let currentStoryId = null;
+        
+        // Update language toggle buttons
+        function updateLanguageButtons() {
+            document.getElementById('langEN').classList.toggle('active', currentLanguage === 'en');
+            document.getElementById('langES').classList.toggle('active', currentLanguage === 'es');
+        }
+        
+        // Display story in current language
+        function displayStory(id) {
+            currentStoryId = id;
+            const story = stories[id];
+            
+            if (story) {
+                // Check if story has language support
+                if (typeof story.title === 'object') {
+                    storyTitle.innerHTML = story.title[currentLanguage] || story.title.en;
+                    storyText.innerHTML = (story.text[currentLanguage] || story.text.en).replace(/\n/g, '<br>');
+                } else {
+                    // Fallback for stories without language support
+                    storyTitle.innerHTML = story.title;
+                    storyText.innerHTML = story.text.replace(/\n/g, '<br>');
+                }
+            }
+            
+            updateLanguageButtons();
+        }
+        
+        // Language toggle handlers
+        document.getElementById('langEN').addEventListener('click', function() {
+            currentLanguage = 'en';
+            localStorage.setItem('language', 'en');
+            if (currentStoryId) displayStory(currentStoryId);
+        });
+        
+        document.getElementById('langES').addEventListener('click', function() {
+            currentLanguage = 'es';
+            localStorage.setItem('language', 'es');
+            if (currentStoryId) displayStory(currentStoryId);
+        });
+        
         // Generate default stories for remaining squares
         for (let i = 10; i <= 32; i++) {
             if (!stories[i]) {
@@ -450,28 +539,35 @@
                 // Get the position and size of the clicked square
                 const rect = this.getBoundingClientRect();
                 const computedStyle = window.getComputedStyle(this);
-                const background = computedStyle.background;
                 
-                // Determine target background color
-                let targetBgColor;
-                if (this.dataset.background) {
-                    targetBgColor = this.dataset.background;
-                } else {
-                    const gradientMatch = background.match(/rgb\([\d,\s]+\)|#[0-9a-fA-F]{6}/);
-                    targetBgColor = gradientMatch ? gradientMatch[0] : '#000';
-                }
+                // Store the background IMAGE before we hide it
+                const backgroundImage = computedStyle.backgroundImage;
+                const backgroundColor = computedStyle.backgroundColor;
+                
+                // Now hide the image in the grid, leaving only the solid color
+                this.classList.add('clicked');
                 
                 // Set up the fullscreen square to start at the grid square's position
-                fullscreenSquare.style.background = background;
-                fullscreenSquare.style.border = 'none';
+                // Use the original background IMAGE, not the current background
+                fullscreenSquare.style.backgroundImage = backgroundImage;
+                fullscreenSquare.style.backgroundColor = backgroundColor;
+                fullscreenSquare.style.backgroundSize = 'cover';
+                fullscreenSquare.style.backgroundPosition = 'center';
                 fullscreenSquare.style.boxShadow = 'none';
                 fullscreenSquare.style.width = rect.width + 'px';
                 fullscreenSquare.style.height = rect.height + 'px';
                 fullscreenSquare.style.left = rect.left + 'px';
                 fullscreenSquare.style.top = rect.top + 'px';
                 fullscreenSquare.style.margin = '0';
-                fullscreenSquare.style.borderRadius = '0';
                 fullscreenSquare.style.transform = 'translate(0, 0) scale(1)';
+                
+                // Determine target background color
+                let targetBgColor;
+                if (this.dataset.background) {
+                    targetBgColor = this.dataset.background;
+                } else {
+                    targetBgColor = backgroundColor;
+                }
                 
                 // Show fullscreen view with transparent background initially
                 fullscreenView.style.backgroundColor = 'rgba(0, 0, 0, 0)';
@@ -498,8 +594,6 @@
                         fullscreenSquare.style.height = finalSize + 'px';
                         fullscreenSquare.style.left = finalLeft + 'px';
                         fullscreenSquare.style.top = finalTop + 'px';
-                        fullscreenSquare.style.borderRadius = '8px';
-                        fullscreenSquare.style.border = '4px solid #000';
                         fullscreenSquare.style.boxShadow = '0 10px 40px rgba(0, 0, 0, 0.3)';
                         
                         // Fade in background color
@@ -508,8 +602,7 @@
                 });
                 
                 // Set story content and show it after animation
-                storyTitle.innerHTML = story.title;
-                storyText.innerHTML = story.text.replace(/\n/g, '<br>');
+                displayStory(id);
                 
                 setTimeout(() => {
                     storyContainer.classList.add('visible');
@@ -541,8 +634,6 @@
                     fullscreenSquare.style.height = rect.height + 'px';
                     fullscreenSquare.style.left = rect.left + 'px';
                     fullscreenSquare.style.top = rect.top + 'px';
-                    fullscreenSquare.style.borderRadius = '0';
-                    fullscreenSquare.style.border = 'none';
                     fullscreenSquare.style.boxShadow = 'none';
                     
                     // Fade out background color
@@ -552,6 +643,11 @@
             
             setTimeout(() => {
                 fullscreenView.classList.remove('active');
+                
+                // Restore the image by removing clicked class
+                if (lastClickedSquare) {
+                    lastClickedSquare.classList.remove('clicked');
+                }
             }, 800); // Total: 200ms wait + 600ms animation
         }
 
